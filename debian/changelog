@@ -3,6 +3,7 @@ protobuf (2.5.0-1) unstable; urgency=low
   * Non-maintainer upload
   * Update debian/watch
   * New upstream version
+  * Refresh patches
 
  -- Micah Anderson <micah@debian.org>  Tue, 13 Aug 2013 16:47:08 -0400
 
