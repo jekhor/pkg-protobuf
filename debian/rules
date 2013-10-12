@@ -19,6 +19,16 @@ export DH_OPTIONS
 DPKG_EXPORT_BUILDFLAGS = 1
 include /usr/share/dpkg/buildflags.mk
 
+DEB_HOST_GNU_TYPE  ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
+DEB_BUILD_GNU_TYPE ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
+
+CC  = gcc
+CXX = g++
+ifneq ($(DEB_HOST_GNU_TYPE),$(DEB_BUILD_GNU_TYPE))
+  CC  := $(DEB_HOST_GNU_TYPE)-$(CC)
+  CXX := $(DEB_HOST_GNU_TYPE)-$(CXX)
+endif
+
 CFLAGS += -Wall
 CXXFLAGS += -Wall -fpermissive
 
@@ -65,7 +75,7 @@ endif
 
 	# python bindings
 	cd python && \
-	  PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=cpp python setup.py build
+	  CC=$(CC) CXX=$(CXX) PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=cpp python setup.py build
 
 ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
 	# run tests via pure-python
