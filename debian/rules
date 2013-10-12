@@ -182,7 +182,7 @@ binary-common:
 	dh_strip
 	dh_compress
 	dh_fixperms
-	dh_pysupport
+	dh_python2
 	dh_makeshlibs
 	dh_installdeb
 	dh_shlibdeps
