@@ -44,6 +44,7 @@ configure: configure-stamp
 configure-stamp:
 	dh_testdir
 	# Add here commands to configure the package.
+	dh_autotools-dev_updateconfig
 	dh_auto_configure
 	touch configure-stamp
 
@@ -108,6 +109,7 @@ clean:
 	# Java bindings cleanups
 	$(SHELL) /usr/bin/ant -f debian/java-build.xml clean || true
 
+	dh_autotools-dev_restoreconfig
 	dh_clean
 	mh_clean
 
