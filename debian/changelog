@@ -1,3 +1,11 @@
+protobuf (2.5.0-2) experimental; urgency=low
+
+  * Fix FTBFS on "unsupported" architectures due to upstream issue 488:
+    - https://code.google.com/p/protobuf/issues/detail?id=488
+    Patch from Stanislav Ochotnicky (Red Hat).
+
+ -- Robert S. Edmonds <edmonds@debian.org>  Sat, 19 Oct 2013 10:42:29 -0400
+
 protobuf (2.5.0-1) experimental; urgency=low
 
   [ Micah Anderson ]
