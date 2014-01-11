@@ -1,3 +1,13 @@
+protobuf (2.5.0-3) experimental; urgency=medium
+
+  * Fix FTBFS on mips, due to missing detection of that architecture in
+    .../platform-macros.h.
+  * Fix FTBFS on ia64, powerpc, and sparc, where the default gcc version is
+    too old to compile the new __atomic*() intrinsics, by Build-Depending on
+    gcc-4.8, g++-4.8.
+
+ -- Robert S. Edmonds <edmonds@debian.org>  Sat, 11 Jan 2014 17:21:17 -0500
+
 protobuf (2.5.0-2) experimental; urgency=low
 
   * Fix FTBFS on "unsupported" architectures due to upstream issue 488:
