@@ -4,3 +4,4 @@ arm_optimization.diff
 revert_upstream_issue_388_about_rpath.diff
 fix-ftbfs-gcc4.7-kfreebsd.patch
 fix-ftbfs-upstream-issue-488.patch
+fix-platform-macros-mips.patch
