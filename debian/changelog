@@ -1,3 +1,11 @@
+protobuf (2.5.0-4) experimental; urgency=medium
+
+  * Rewrite the platform detection logic in .../platform-macros.h to be more
+    tolerant of all Debian architectures.
+  * Switch from autotools-dev to dh-autoreconf.
+
+ -- Robert S. Edmonds <edmonds@debian.org>  Sun, 12 Jan 2014 12:49:50 -0500
+
 protobuf (2.5.0-3) experimental; urgency=medium
 
   * Fix FTBFS on mips, due to missing detection of that architecture in
