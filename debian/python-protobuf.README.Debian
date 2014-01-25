@@ -1,6 +1,17 @@
 C++ backend
 ===========
 
+Per the upstream bug tracker [0,1], the experimental C++ backend for the
+Python protobuf bindings is buggy and unmaintained. A new implementation may
+be available in a future release, but until then the Debian python-protobuf
+package can only use the classic pure Python implementation.
+
+[0] https://code.google.com/p/protobuf/issues/detail?id=434
+
+[1] https://code.google.com/p/protobuf/issues/detail?id=503
+
+ -- Robert S. Edmonds <edmonds@debian.org>  Sat, 25 Jan 2014 16:49:57 -0500
+
 Note that protobuf version 2.4.0 added an experimental C++-based
 library for the python bindings. Currently, this is not enabled by
 default, and selection of the used backend depends on the
