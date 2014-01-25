@@ -1,3 +1,11 @@
+protobuf (2.5.0-5) unstable; urgency=medium
+
+  * Upload to unstable.
+  * Note that the experimental C++ backend in python-protobuf has been
+    disabled.
+
+ -- Robert S. Edmonds <edmonds@debian.org>  Sat, 25 Jan 2014 16:57:43 -0500
+
 protobuf (2.5.0-4) experimental; urgency=medium
 
   * Rewrite the platform detection logic in .../platform-macros.h to be more
