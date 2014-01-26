@@ -22,8 +22,8 @@ include /usr/share/dpkg/buildflags.mk
 DEB_HOST_GNU_TYPE  ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
 DEB_BUILD_GNU_TYPE ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
 
-CC  = gcc-4.8
-CXX = g++-4.8
+CC  = gcc
+CXX = g++
 ifneq ($(DEB_HOST_GNU_TYPE),$(DEB_BUILD_GNU_TYPE))
   CC  := $(DEB_HOST_GNU_TYPE)-$(CC)
   CXX := $(DEB_HOST_GNU_TYPE)-$(CXX)
@@ -55,7 +55,7 @@ configure-stamp:
 	dh_testdir
 	# Add here commands to configure the package.
 	dh_autoreconf
-	dh_auto_configure -- CC=$(CC) CXX=$(CXX)
+	dh_auto_configure
 	touch configure-stamp
 
 
