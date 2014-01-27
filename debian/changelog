@@ -1,9 +1,9 @@
-protobuf (2.5.0-6) UNRELEASED; urgency=medium
+protobuf (2.5.0-6) experimental; urgency=medium
 
   * Use a different approach to fixing the FTBFS caused by upstream bug #488.
   * Revert the Build-Depends on a specific gcc/g++ version.
 
- -- Robert S. Edmonds <edmonds@debian.org>  Sun, 26 Jan 2014 13:40:36 -0500
+ -- Robert S. Edmonds <edmonds@debian.org>  Sun, 26 Jan 2014 23:56:47 -0500
 
 protobuf (2.5.0-5) unstable; urgency=medium
 
