@@ -1,3 +1,10 @@
+protobuf (2.5.0-7) unstable; urgency=medium
+
+  * Upload to unstable.
+  * Closes: #736801.
+
+ -- Robert S. Edmonds <edmonds@debian.org>  Wed, 29 Jan 2014 14:27:42 -0500
+
 protobuf (2.5.0-6) experimental; urgency=medium
 
   * Use a different approach to fixing the FTBFS caused by upstream bug #488.
