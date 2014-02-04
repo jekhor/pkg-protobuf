@@ -1,3 +1,12 @@
+protobuf (2.5.0-8) experimental; urgency=medium
+
+  * Revert debian/patches/fix-ftbfs-upstream-issue-488.patch to use the
+    version of this patch from 2.5.0-5.
+  * Build-Depend on g++ >= 4:4.7 to ensure that the *default* compiler is new
+    enough to support the gcc __atomic*() built-ins.
+
+ -- Robert S. Edmonds <edmonds@debian.org>  Mon, 03 Feb 2014 19:42:23 -0500
+
 protobuf (2.5.0-7) unstable; urgency=medium
 
   * Upload to unstable.
