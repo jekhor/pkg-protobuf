@@ -1,3 +1,10 @@
+protobuf (2.5.0-9) unstable; urgency=medium
+
+  * Upload to unstable.
+  * Officially take over primary maintainership of the package, per Iustin.
+
+ -- Robert S. Edmonds <edmonds@debian.org>  Wed, 05 Feb 2014 11:37:11 -0500
+
 protobuf (2.5.0-8) experimental; urgency=medium
 
   * Revert debian/patches/fix-ftbfs-upstream-issue-488.patch to use the
