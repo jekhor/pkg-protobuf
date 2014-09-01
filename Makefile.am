@@ -38,9 +38,9 @@ pkgconfig_DATA = protobuf.pc protobuf-lite.pc
 EXTRA_DIST =                                                                 \
   autogen.sh                                                                 \
   generate_descriptor_proto.sh                                               \
-  README.md                                                                  \
+  README.txt                                                                 \
   INSTALL.txt                                                                \
-  LICENSE                                                                    \
+  COPYING.txt                                                                \
   CONTRIBUTORS.txt                                                           \
   CHANGES.txt                                                                \
   editors/README.txt                                                         \
