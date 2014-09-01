@@ -28,36 +28,68 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-// Author: qrczak@google.com (Marcin Kowalczyk)
+// Author: tibell@google.com (Johan Tibell)
 
-#include <google/protobuf/pyext/python_protobuf.h>
+#ifndef GOOGLE_PROTOBUF_PYTHON_CPP_SCOPED_PYOBJECT_PTR_H__
+#define GOOGLE_PROTOBUF_PYTHON_CPP_SCOPED_PYOBJECT_PTR_H__
+
+#include <Python.h>
 
 namespace google {
-namespace protobuf {
-namespace python {
+class ScopedPyObjectPtr {
+ public:
+  // Constructor.  Defaults to intializing with NULL.
+  // There is no way to create an uninitialized ScopedPyObjectPtr.
+  explicit ScopedPyObjectPtr(PyObject* p = NULL) : ptr_(p) { }
 
-static const Message* GetCProtoInsidePyProtoStub(PyObject* msg) {
-  return NULL;
-}
-static Message* MutableCProtoInsidePyProtoStub(PyObject* msg) {
-  return NULL;
-}
+  // Destructor.  If there is a PyObject object, delete it.
+  ~ScopedPyObjectPtr() {
+    Py_XDECREF(ptr_);
+  }
 
-// This is initialized with a default, stub implementation.
-// If python-google.protobuf.cc is loaded, the function pointer is overridden
-// with a full implementation.
-const Message* (*GetCProtoInsidePyProtoPtr)(PyObject* msg) =
-    GetCProtoInsidePyProtoStub;
-Message* (*MutableCProtoInsidePyProtoPtr)(PyObject* msg) =
-    MutableCProtoInsidePyProtoStub;
+  // Reset.  Deletes the current owned object, if any.
+  // Then takes ownership of a new object, if given.
+  // this->reset(this->get()) works.
+  PyObject* reset(PyObject* p = NULL) {
+    if (p != ptr_) {
+      Py_XDECREF(ptr_);
+      ptr_ = p;
+    }
+    return ptr_;
+  }
 
-const Message* GetCProtoInsidePyProto(PyObject* msg) {
-  return GetCProtoInsidePyProtoPtr(msg);
-}
-Message* MutableCProtoInsidePyProto(PyObject* msg) {
-  return MutableCProtoInsidePyProtoPtr(msg);
-}
+  // Releases ownership of the object.
+  PyObject* release() {
+    PyObject* p = ptr_;
+    ptr_ = NULL;
+    return p;
+  }
 
-}  // namespace python
-}  // namespace protobuf
+  operator PyObject*() { return ptr_; }
+
+  PyObject* operator->() const  {
+    assert(ptr_ != NULL);
+    return ptr_;
+  }
+
+  PyObject* get() const { return ptr_; }
+
+  Py_ssize_t refcnt() const { return Py_REFCNT(ptr_); }
+
+  void inc() const { Py_INCREF(ptr_); }
+
+  // Comparison operators.
+  // These return whether a ScopedPyObjectPtr and a raw pointer
+  // refer to the same object, not just to two different but equal
+  // objects.
+  bool operator==(const PyObject* p) const { return ptr_ == p; }
+  bool operator!=(const PyObject* p) const { return ptr_ != p; }
+
+ private:
+  PyObject* ptr_;
+
+  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(ScopedPyObjectPtr);
+};
+
 }  // namespace google
+#endif  // GOOGLE_PROTOBUF_PYTHON_CPP_SCOPED_PYOBJECT_PTR_H__

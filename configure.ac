@@ -12,7 +12,7 @@ AC_PREREQ(2.59)
 # In the SVN trunk, the version should always be the next anticipated release
 # version with the "-pre" suffix.  (We used to use "-SNAPSHOT" but this pushed
 # the size of one file name in the dist tarfile over the 99-char limit.)
-AC_INIT([Protocol Buffers],[2.5.0],[protobuf@googlegroups.com],[protobuf])
+AC_INIT([Protocol Buffers],[2.6.0],[protobuf@googlegroups.com],[protobuf])
 
 AM_MAINTAINER_MODE([enable])
 
@@ -29,7 +29,7 @@ AS_IF([test "x${ac_cv_env_CXXFLAGS_set}" = "x"],
 
 AC_CANONICAL_TARGET
 
-AM_INIT_AUTOMAKE
+AM_INIT_AUTOMAKE([subdir-objects])
 
 AC_ARG_WITH([zlib],
   [AS_HELP_STRING([--with-zlib],
