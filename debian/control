@@ -154,9 +154,9 @@ Description: compiler for protocol buffer definition files
  binding for the supported languages.
 
 Package: python-protobuf
-Architecture: all
+Architecture: any
 Section: python
-Depends: ${python:Depends}, ${misc:Depends}
+Depends: ${shlibs:Depends}, ${python:Depends}, ${misc:Depends}
 Description: Python bindings for protocol buffers
  Protocol buffers are a flexible, efficient, automated mechanism for
  serializing structured data - similar to XML, but smaller, faster, and
