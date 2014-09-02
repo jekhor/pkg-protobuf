@@ -18,15 +18,23 @@ override_dh_auto_build:
 override_dh_auto_test:
 	dh_auto_test
 
+ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
 	# Python test.
-	cd python && \
-		LD_LIBRARY_PATH=../src/.libs python setup.py test --cpp_implementation
+	set -e; \
+	export LD_LIBRARY_PATH=$(CURDIR)/src/.libs; \
+	cd python && for python in $(shell pyversions -r); do \
+		$$python setup.py test --cpp_implementation; \
+	done
+endif
 
 override_dh_auto_clean:
 	dh_auto_clean
 
 	# Python clean.
-	cd python && python setup.py clean --all
+	set -e; \
+	cd python && for python in $(shell pyversions -r); do \
+		$$python setup.py clean --all; \
+	done
 	rm -rf python/protobuf.egg-info
 
 	# Java clean.
@@ -37,10 +45,12 @@ override_dh_auto_install:
 	dh_auto_install
 
 	# Python install.
-	cd python && \
-		python setup.py install --cpp_implementation \
+	set -e; \
+	cd python && for python in $(shell pyversions -r); do \
+		$$python setup.py install --cpp_implementation \
 			--install-layout=deb --no-compile \
-			--root=$(CURDIR)/debian/python-protobuf
+			--root=$(CURDIR)/debian/python-protobuf; \
+	done
 	find $(CURDIR)/debian/python-protobuf -name 'protobuf-*-nspkg.pth' -delete
 
 	# Java install.
