@@ -1,8 +1,26 @@
-protobuf (2.6.0-1) UNRELEASED; urgency=medium
+protobuf (2.6.0-1) experimental; urgency=medium
 
   * New upstream release.
+  * Upload to experimental.
+  * Switch to dh sequencer in debian/rules.
+  * Bump ABI version from 8 to 9.
+  * Drop all patches from debian/patches/:
+    - arm_optimization.diff
+        (Appears to be no longer needed.)
+    - disable-setuptools-download.diff
+        (Disable ez_setup entirely, rather than disabling the downloader
+        component inside ez_setup.)
+    - fix-ftbfs-gcc4.7-kfreebsd.patch
+        (Fixed upstream.)
+    - fix-ftbfs-upstream-issue-488.patch
+        (Fixed upstream.)
+    - revert_upstream_issue_388_about_rpath.diff
+        (Fixed upstream.)
+  * Use dh-autoreconf. (Closes: #725976.)
+  * Enable the new C++-based Python extension module shipped in 2.6.0.
+    See /usr/share/doc/python-protobuf/README.Debian for details.
 
- -- Robert S. Edmonds <edmonds@debian.org>  Sun, 31 Aug 2014 18:22:48 -0700
+ -- Robert S. Edmonds <edmonds@debian.org>  Tue, 02 Sep 2014 16:57:20 -0400
 
 protobuf (2.5.0-9) unstable; urgency=medium
 
