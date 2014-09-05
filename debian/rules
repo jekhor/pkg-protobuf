@@ -48,7 +48,7 @@ override_dh_auto_clean-indep:
 
 	# Java clean.
 	ant -f debian/java-build.xml clean || true
-	mh_clean
+	mh_clean || true
 
 override_dh_auto_install-arch:
 	dh_auto_install --arch
