@@ -3,8 +3,8 @@
 %:
 	dh $@ --with autoreconf,python2
 
-override_dh_auto_build:
-	dh_auto_build
+override_dh_auto_build-arch:
+	dh_auto_build --arch
 
 	# Generate the manpage.
 	xmlto man debian/protoc.xml
@@ -12,11 +12,14 @@ override_dh_auto_build:
 	# Python build.
 	cd python && python setup.py build --cpp_implementation
 
+override_dh_auto_build-indep:
+	dh_auto_build --indep
+
 	# Java build.
 	ant -f debian/java-build.xml jar
 
-override_dh_auto_test:
-	dh_auto_test
+override_dh_auto_test-arch:
+	dh_auto_test --arch
 
 ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
 	# Python test.
@@ -27,8 +30,11 @@ ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
 	done
 endif
 
-override_dh_auto_clean:
-	dh_auto_clean
+override_dh_auto_test-indep:
+	:
+
+override_dh_auto_clean-arch:
+	dh_auto_clean --arch
 
 	# Python clean.
 	set -e; \
@@ -37,12 +43,15 @@ override_dh_auto_clean:
 	done
 	rm -rf python/protobuf.egg-info
 
+override_dh_auto_clean-indep:
+	dh_auto_clean --indep
+
 	# Java clean.
 	ant -f debian/java-build.xml clean || true
 	mh_clean
 
-override_dh_auto_install:
-	dh_auto_install
+override_dh_auto_install-arch:
+	dh_auto_install --arch
 
 	# Python install.
 	set -e; \
@@ -52,6 +61,9 @@ override_dh_auto_install:
 			--root=$(CURDIR)/debian/python-protobuf; \
 	done
 	find $(CURDIR)/debian/python-protobuf -name 'protobuf-*-nspkg.pth' -delete
+
+override_dh_auto_install-indep:
+	dh_auto_install --indep
 
 	# Java install.
 	mh_install
