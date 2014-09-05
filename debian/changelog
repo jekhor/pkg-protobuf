@@ -1,3 +1,9 @@
+protobuf (2.6.0-2) experimental; urgency=medium
+
+  * Compile the Java bindings only on architecture-independent builds.
+
+ -- Robert S. Edmonds <edmonds@debian.org>  Fri, 05 Sep 2014 19:32:39 -0400
+
 protobuf (2.6.0-1) experimental; urgency=medium
 
   * New upstream release.
