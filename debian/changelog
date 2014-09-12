@@ -1,3 +1,9 @@
+protobuf (2.6.0-3) unstable; urgency=medium
+
+  * Upload to unstable.
+
+ -- Robert S. Edmonds <edmonds@debian.org>  Thu, 11 Sep 2014 22:50:10 -0400
+
 protobuf (2.6.0-2) experimental; urgency=medium
 
   * Compile the Java bindings only on architecture-independent builds.
