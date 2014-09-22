@@ -1,7 +1,7 @@
 Source: protobuf
 Section: devel
 Priority: optional
-Maintainer: Robert S. Edmonds <edmonds@debian.org>
+Maintainer: Robert Edmonds <edmonds@debian.org>
 Uploaders: Iustin Pop <iustin@debian.org>
 Build-Depends:
 # Debian build system
