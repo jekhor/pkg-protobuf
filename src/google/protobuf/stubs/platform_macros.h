@@ -1,6 +1,6 @@
 // Protocol Buffers - Google's data interchange format
 // Copyright 2012 Google Inc.  All rights reserved.
-// http://code.google.com/p/protobuf/
+// https://developers.google.com/protocol-buffers/
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -65,6 +65,13 @@
 #endif
 #elif defined(__pnacl__)
 #define GOOGLE_PROTOBUF_ARCH_32_BIT 1
+#elif defined(sparc)
+#define GOOGLE_PROTOBUF_ARCH_SPARC 1
+#ifdef SOLARIS_64BIT_ENABLED
+#define GOOGLE_PROTOBUF_ARCH_64_BIT 1
+#else
+#define GOOGLE_PROTOBUF_ARCH_32_BIT 1
+#endif
 #elif defined(__GNUC__)
 # if (((__GNUC__ == 4) && (__GNUC_MINOR__ >= 7)) || (__GNUC__ > 4))
 // We fallback to the generic Clang/GCC >= 4.7 implementation in atomicops.h
@@ -87,6 +94,8 @@ GOOGLE_PROTOBUF_PLATFORM_ERROR
 #define GOOGLE_PROTOBUF_OS_APPLE
 #elif defined(__native_client__)
 #define GOOGLE_PROTOBUF_OS_NACL
+#elif defined(sun)
+#define GOOGLE_PROTOBUF_OS_SOLARIS
 #endif
 
 #undef GOOGLE_PROTOBUF_PLATFORM_ERROR
