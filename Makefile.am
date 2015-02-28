@@ -154,10 +154,49 @@ java_EXTRA_DIST=                                                             \
   java/pom.xml                                                               \
   java/README.txt
 
+javanano_EXTRA_DIST=                                                                      \
+  javanano/src/main/java/com/google/protobuf/nano/CodedOutputByteBufferNano.java          \
+  javanano/src/main/java/com/google/protobuf/nano/FieldData.java                          \
+  javanano/src/main/java/com/google/protobuf/nano/FieldArray.java                         \
+  javanano/src/main/java/com/google/protobuf/nano/WireFormatNano.java                     \
+  javanano/src/main/java/com/google/protobuf/nano/Extension.java                          \
+  javanano/src/main/java/com/google/protobuf/nano/CodedInputByteBufferNano.java           \
+  javanano/src/main/java/com/google/protobuf/nano/UnknownFieldData.java                   \
+  javanano/src/main/java/com/google/protobuf/nano/MessageNano.java                        \
+  javanano/src/main/java/com/google/protobuf/nano/InternalNano.java                       \
+  javanano/src/main/java/com/google/protobuf/nano/InvalidProtocolBufferNanoException.java \
+  javanano/src/main/java/com/google/protobuf/nano/MapFactories.java                       \
+  javanano/src/main/java/com/google/protobuf/nano/ExtendableMessageNano.java              \
+  javanano/src/main/java/com/google/protobuf/nano/MessageNanoPrinter.java                 \
+  javanano/src/test/java/com/google/protobuf/nano/unittest_accessors_nano.proto           \
+  javanano/src/test/java/com/google/protobuf/nano/unittest_enum_class_nano.proto          \
+  javanano/src/test/java/com/google/protobuf/nano/unittest_reference_types_nano.proto     \
+  javanano/src/test/java/com/google/protobuf/nano/unittest_extension_repeated_nano.proto  \
+  javanano/src/test/java/com/google/protobuf/nano/unittest_has_nano.proto                 \
+  javanano/src/test/java/com/google/protobuf/nano/unittest_nano.proto                     \
+  javanano/src/test/java/com/google/protobuf/nano/unittest_multiple_nameclash_nano.proto  \
+  javanano/src/test/java/com/google/protobuf/nano/unittest_single_nano.proto              \
+  javanano/src/test/java/com/google/protobuf/nano/NanoTest.java                           \
+  javanano/src/test/java/com/google/protobuf/nano/unittest_simple_nano.proto              \
+  javanano/src/test/java/com/google/protobuf/nano/unittest_import_nano.proto              \
+  javanano/src/test/java/com/google/protobuf/nano/unittest_repeated_merge_nano.proto      \
+  javanano/src/test/java/com/google/protobuf/nano/unittest_extension_nano.proto           \
+  javanano/src/test/java/com/google/protobuf/nano/unittest_repeated_packables_nano.proto  \
+  javanano/src/test/java/com/google/protobuf/nano/unittest_extension_singular_nano.proto  \
+  javanano/src/test/java/com/google/protobuf/nano/unittest_recursive_nano.proto           \
+  javanano/src/test/java/com/google/protobuf/nano/unittest_extension_packed_nano.proto    \
+  javanano/src/test/java/com/google/protobuf/nano/unittest_enum_validity_nano.proto       \
+  javanano/src/test/java/com/google/protobuf/nano/unittest_stringutf8_nano.proto          \
+  javanano/src/test/java/com/google/protobuf/nano/unittest_multiple_nano.proto            \
+  javanano/src/test/java/com/google/protobuf/nano/unittest_enum_class_multiple_nano.proto \
+  javanano/src/test/java/com/google/protobuf/nano/map_test.proto                          \
+  javanano/README.txt                                                                     \
+  javanano/pom.xml
+
+
 python_EXTRA_DIST=                                                           \
   python/google/protobuf/internal/api_implementation.cc                      \
   python/google/protobuf/internal/api_implementation.py                      \
-  python/google/protobuf/internal/api_implementation_default_test.py         \
   python/google/protobuf/internal/containers.py                              \
   python/google/protobuf/internal/cpp_message.py                             \
   python/google/protobuf/internal/decoder.py                                 \
@@ -181,6 +220,7 @@ python_EXTRA_DIST=                                                           \
   python/google/protobuf/internal/more_extensions.proto                      \
   python/google/protobuf/internal/more_extensions_dynamic.proto              \
   python/google/protobuf/internal/more_messages.proto                        \
+  python/google/protobuf/internal/_parameterized.py                          \
   python/google/protobuf/internal/proto_builder_test.py                      \
   python/google/protobuf/internal/python_message.py                          \
   python/google/protobuf/internal/reflection_test.py                         \
@@ -195,7 +235,6 @@ python_EXTRA_DIST=                                                           \
   python/google/protobuf/internal/wire_format.py                             \
   python/google/protobuf/internal/wire_format_test.py                        \
   python/google/protobuf/internal/__init__.py                                \
-  python/google/protobuf/internal/import_test_package/BUILD                  \
   python/google/protobuf/internal/import_test_package/__init__.py            \
   python/google/protobuf/internal/import_test_package/inner.proto            \
   python/google/protobuf/internal/import_test_package/outer.proto            \
@@ -203,16 +242,17 @@ python_EXTRA_DIST=                                                           \
   python/google/protobuf/pyext/cpp_message.py                                \
   python/google/protobuf/pyext/descriptor.h                                  \
   python/google/protobuf/pyext/descriptor.cc                                 \
-  python/google/protobuf/pyext/descriptor_cpp2_test.py                       \
+  python/google/protobuf/pyext/descriptor_pool.h                             \
+  python/google/protobuf/pyext/descriptor_pool.cc                            \
+  python/google/protobuf/pyext/descriptor_containers.h                       \
+  python/google/protobuf/pyext/descriptor_containers.cc                      \
   python/google/protobuf/pyext/extension_dict.h                              \
   python/google/protobuf/pyext/extension_dict.cc                             \
   python/google/protobuf/pyext/message.h                                     \
   python/google/protobuf/pyext/message.cc                                    \
-  python/google/protobuf/pyext/message_factory_cpp2_test.py                  \
   python/google/protobuf/pyext/proto2_api_test.proto                         \
   python/google/protobuf/pyext/python.proto                                  \
   python/google/protobuf/pyext/python_protobuf.h                             \
-  python/google/protobuf/pyext/reflection_cpp2_generated_test.py             \
   python/google/protobuf/pyext/repeated_composite_container.h                \
   python/google/protobuf/pyext/repeated_composite_container.cc               \
   python/google/protobuf/pyext/repeated_scalar_container.h                   \
@@ -239,7 +279,29 @@ python_EXTRA_DIST=                                                           \
   python/stubout.py                                                          \
   python/README.txt
 
-all_EXTRA_DIST=$(java_EXTRA_DIST) $(python_EXTRA_DIST)
+ruby_EXTRA_DIST=                                                             \
+  ruby/README.md                                                             \
+  ruby/Rakefile                                                              \
+  ruby/ext/google/protobuf_c/defs.c                                          \
+  ruby/ext/google/protobuf_c/encode_decode.c                                 \
+  ruby/ext/google/protobuf_c/extconf.rb                                      \
+  ruby/ext/google/protobuf_c/map.c                                           \
+  ruby/ext/google/protobuf_c/message.c                                       \
+  ruby/ext/google/protobuf_c/protobuf.c                                      \
+  ruby/ext/google/protobuf_c/protobuf.h                                      \
+  ruby/ext/google/protobuf_c/repeated_field.c                                \
+  ruby/ext/google/protobuf_c/storage.c                                       \
+  ruby/ext/google/protobuf_c/upb.c                                           \
+  ruby/ext/google/protobuf_c/upb.h                                           \
+  ruby/google-protobuf.gemspec                                               \
+  ruby/lib/google/protobuf.rb                                                \
+  ruby/tests/basic.rb                                                        \
+  ruby/tests/stress.rb                                                       \
+  ruby/tests/generated_code.proto                                            \
+  ruby/tests/generated_code.rb                                               \
+  ruby/tests/generated_code_test.rb
+
+all_EXTRA_DIST=$(java_EXTRA_DIST) $(javanano_EXTRA_DIST) $(python_EXTRA_DIST) $(ruby_EXTRA_DIST)
 
 EXTRA_DIST = $(@DIST_LANG@_EXTRA_DIST)                                       \
   autogen.sh                                                                 \
@@ -249,10 +311,12 @@ EXTRA_DIST = $(@DIST_LANG@_EXTRA_DIST)                                       \
   LICENSE                                                                    \
   CONTRIBUTORS.txt                                                           \
   CHANGES.txt                                                                \
+  config.h.include                                                           \
   editors/README.txt                                                         \
   editors/proto.vim                                                          \
   editors/protobuf-mode.el                                                   \
   vsprojects/config.h                                                        \
+  vsprojects/google/protobuf/stubs/pbconfig.h                                \
   vsprojects/extract_includes.bat                                            \
   vsprojects/libprotobuf.vcproj                                              \
   vsprojects/libprotobuf-lite.vcproj                                         \

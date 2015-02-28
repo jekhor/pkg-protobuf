@@ -64,6 +64,10 @@
 #include <gtest/gtest.h>
 
 
+// Disable the whole test when we use tcmalloc for "draconian" heap checks, in
+// which case tcmalloc will print warnings that fail the plugin tests.
+#if !GOOGLE_PROTOBUF_HEAP_CHECK_DRACONIAN
+
 namespace google {
 namespace protobuf {
 namespace compiler {
@@ -725,7 +729,7 @@ TEST_F(CommandLineInterfaceTest, ColonDelimitedPath) {
 #endif
 
   Run("protocol_compiler --test_out=$tmpdir "
-      "--proto_path=$tmpdir/a"PATH_SEPARATOR"$tmpdir/b foo.proto");
+      "--proto_path=$tmpdir/a" PATH_SEPARATOR "$tmpdir/b foo.proto");
 
 #undef PATH_SEPARATOR
 
@@ -1663,3 +1667,5 @@ TEST_F(EncodeDecodeTest, ProtoParseError) {
 }  // namespace compiler
 }  // namespace protobuf
 }  // namespace google
+
+#endif // !GOOGLE_PROTOBUF_HEAP_CHECK_DRACONIAN

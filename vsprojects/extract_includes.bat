@@ -6,7 +6,9 @@ md include\google\protobuf\io
 md include\google\protobuf\compiler
 md include\google\protobuf\compiler\cpp
 md include\google\protobuf\compiler\java
+md include\google\protobuf\compiler\javanano
 md include\google\protobuf\compiler\python
+md include\google\protobuf\compiler\ruby
 copy ..\src\google\protobuf\arena.h include\google\protobuf\arena.h
 copy ..\src\google\protobuf\arenastring.h include\google\protobuf\arenastring.h
 copy ..\src\google\protobuf\compiler\code_generator.h include\google\protobuf\compiler\code_generator.h
@@ -14,10 +16,12 @@ copy ..\src\google\protobuf\compiler\command_line_interface.h include\google\pro
 copy ..\src\google\protobuf\compiler\cpp\cpp_generator.h include\google\protobuf\compiler\cpp\cpp_generator.h
 copy ..\src\google\protobuf\compiler\importer.h include\google\protobuf\compiler\importer.h
 copy ..\src\google\protobuf\compiler\java\java_generator.h include\google\protobuf\compiler\java\java_generator.h
+copy ..\src\google\protobuf\compiler\javanano\javanano_generator.h include\google\protobuf\compiler\javanano\javanano_generator.h
 copy ..\src\google\protobuf\compiler\parser.h include\google\protobuf\compiler\parser.h
 copy ..\src\google\protobuf\compiler\plugin.h include\google\protobuf\compiler\plugin.h
 copy ..\src\google\protobuf\compiler\plugin.pb.h include\google\protobuf\compiler\plugin.pb.h
 copy ..\src\google\protobuf\compiler\python\python_generator.h include\google\protobuf\compiler\python\python_generator.h
+copy ..\src\google\protobuf\compiler\ruby\ruby_generator.h include\google\protobuf\compiler\ruby\ruby_generator.h
 copy ..\src\google\protobuf\descriptor_database.h include\google\protobuf\descriptor_database.h
 copy ..\src\google\protobuf\descriptor.h include\google\protobuf\descriptor.h
 copy ..\src\google\protobuf\descriptor.pb.h include\google\protobuf\descriptor.pb.h
@@ -68,6 +72,7 @@ copy ..\src\google\protobuf\stubs\fastmem.h include\google\protobuf\stubs\fastme
 copy ..\src\google\protobuf\stubs\once.h include\google\protobuf\stubs\once.h
 copy ..\src\google\protobuf\stubs\platform_macros.h include\google\protobuf\stubs\platform_macros.h
 copy ..\src\google\protobuf\stubs\singleton.h include\google\protobuf\stubs\singleton.h
+copy ..\src\google\protobuf\stubs\hash.h include\google\protobuf\stubs\hash.h
 copy ..\src\google\protobuf\stubs\stl_util.h include\google\protobuf\stubs\stl_util.h
 copy ..\src\google\protobuf\stubs\template_util.h include\google\protobuf\stubs\template_util.h
 copy ..\src\google\protobuf\stubs\type_traits.h include\google\protobuf\stubs\type_traits.h
@@ -76,3 +81,4 @@ copy ..\src\google\protobuf\unknown_field_set.h include\google\protobuf\unknown_
 copy ..\src\google\protobuf\wire_format.h include\google\protobuf\wire_format.h
 copy ..\src\google\protobuf\wire_format_lite.h include\google\protobuf\wire_format_lite.h
 copy ..\src\google\protobuf\wire_format_lite_inl.h include\google\protobuf\wire_format_lite_inl.h
+copy google\protobuf\stubs\pbconfig.h include\google\protobuf\stubs\pbconfig.h
