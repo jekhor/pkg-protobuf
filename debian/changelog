@@ -1,3 +1,14 @@
+protobuf (2.6.1-1.1) unstable; urgency=medium
+
+  * Non maintainer upload.
+  * Rename libprotobuf-lite9 to libprotobuf-lite9v5, triggered by the libstdc++6
+    ABI change. Addresses: #791246.
+  * Rename libprotobuf9 to libprotobuf9v5.
+  * Rename libprotoc9 to libprotoc9v5.
+  * Add Conflicts/Replaces for the old libraries.
+
+ -- Matthias Klose <doko@debian.org>  Tue, 04 Aug 2015 20:33:36 +0200
+
 protobuf (2.6.1-1) unstable; urgency=medium
 
   * New upstream release.
