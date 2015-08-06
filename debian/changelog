@@ -1,3 +1,10 @@
+protobuf (2.6.1-1.2) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Restore maintainer address.
+
+ -- Matthias Klose <doko@debian.org>  Thu, 06 Aug 2015 08:47:53 +0200
+
 protobuf (2.6.1-1.1) unstable; urgency=medium
 
   * Non maintainer upload.

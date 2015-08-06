@@ -1,8 +1,7 @@
 Source: protobuf
 Section: devel
 Priority: optional
-Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
-XSBC-Original-Maintainer: Robert Edmonds <edmonds@debian.org>
+Maintainer: Robert Edmonds <edmonds@debian.org>
 Uploaders: Iustin Pop <iustin@debian.org>
 Build-Depends:
 # Debian build system
