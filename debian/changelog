@@ -1,3 +1,13 @@
+protobuf (2.6.1-1.3) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Disable optimization on mips and mipsel so that the tests pass.
+    To keep the g++-5 transition moving, optimization is completely
+    disabled here; someone who knows better can be more selective
+    later. (Mitigates: #796069)
+
+ -- Simon McVittie <smcv@debian.org>  Wed, 26 Aug 2015 21:37:58 +0100
+
 protobuf (2.6.1-1.2) unstable; urgency=medium
 
   * Non-maintainer upload.
