@@ -1,8 +1,10 @@
 Source: protobuf
 Section: devel
 Priority: optional
-Maintainer: Robert Edmonds <edmonds@debian.org>
-Uploaders: Iustin Pop <iustin@debian.org>
+Maintainer: Debian protobuf maintainers <pkg-protobuf-devel@lists.alioth.debian.org>
+Uploaders:
+ Robert Edmonds <edmonds@debian.org>,
+ Iustin Pop <iustin@debian.org>,
 Build-Depends:
 # Debian build system
  dpkg-dev (>= 1.16.1~)
