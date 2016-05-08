@@ -1,8 +1,12 @@
 Source: protobuf
 Section: devel
 Priority: optional
-Maintainer: Robert Edmonds <edmonds@debian.org>
-Uploaders: Iustin Pop <iustin@debian.org>
+Maintainer: Debian protobuf maintainers <pkg-protobuf-devel@lists.alioth.debian.org>
+Uploaders:
+ Robert Edmonds <edmonds@debian.org>,
+ Iustin Pop <iustin@debian.org>,
+ Laszlo Boszormenyi (GCS) <gcs@debian.org>,
+ Andrew Pollock <apollock@debian.org>
 Build-Depends:
 # Debian build system
  dpkg-dev (>= 1.16.1~)
@@ -28,8 +32,8 @@ Build-Depends-Indep:
  , maven-repo-helper
 Standards-Version: 3.9.5
 Homepage: https://code.google.com/p/protobuf/
-Vcs-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/protobuf.git
-Vcs-Git: git://anonscm.debian.org/collab-maint/protobuf.git
+Vcs-Browser: http://anonscm.debian.org/gitweb/?p=pkg-protobuf/pkg-protobuf.git
+Vcs-Git: git://anonscm.debian.org/pkg-protobuf/pkg-protobuf.git
 X-Python-Version: >= 2.7
 
 Package: libprotobuf9v5
