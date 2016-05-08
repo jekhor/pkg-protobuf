@@ -1,1 +1,2 @@
 01-drop-ezsetup.patch
+02-fix-sparc64-builds.patch
