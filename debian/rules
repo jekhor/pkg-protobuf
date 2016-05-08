@@ -74,8 +74,8 @@ override_dh_auto_install-indep:
 	# Java install.
 	mh_install
 
-override_dh_install:
-	dh_install
+override_dh_install-arch:
+	dh_install --arch
 
 	# Convert doc dir to symlink for the -dev packages.
 	rm -rf $(CURDIR)/debian/libprotobuf-dev/usr/share/doc/libprotobuf-dev
