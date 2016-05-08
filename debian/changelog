@@ -1,3 +1,27 @@
+protobuf (2.6.1-2) unstable; urgency=low
+
+  * Acknowledge NMUs, thanks Matthias Klose and Simon McVittie!
+
+  [ Robert Edmonds ]
+  * debian/control: Change Maintainer to the pkg-protobuf-devel list
+  * debian/control: Add Laszlo Boszormenyi as Uploader
+
+  [ Andrew Pollock ]
+  * Update Git repository location
+
+  [ Iustin Pop ]
+  * Standards version 3.9.8 (no changes needed)
+  * Update project home page (now on github)
+  * Update yet again Vcs-* URLs to point to secure URIs
+  * Update information about our the ezsetup-removal patch
+  * Apply BTS patch for fixing Sparc64 builds, thanks to David Matthew
+    Mattli (Closes: #805072)
+  * Don't fixup arch-dependent package dirs in indep builds
+    (Closes: #806096)
+  * Migrate from custom test scripts to autopkgtest
+
+ -- Iustin Pop <iustin@debian.org>  Sun, 08 May 2016 14:55:24 +0200
+
 protobuf (2.6.1-1.3) unstable; urgency=medium
 
   * Non-maintainer upload.
