@@ -30,7 +30,7 @@ Build-Depends-Indep:
  , ant
  , default-jdk
  , maven-repo-helper
-Standards-Version: 3.9.5
+Standards-Version: 3.9.8
 Homepage: https://code.google.com/p/protobuf/
 Vcs-Browser: http://anonscm.debian.org/gitweb/?p=pkg-protobuf/pkg-protobuf.git
 Vcs-Git: git://anonscm.debian.org/pkg-protobuf/pkg-protobuf.git
