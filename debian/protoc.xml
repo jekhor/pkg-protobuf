@@ -112,7 +112,7 @@ man(1), man(7), http://www.tldp.org/HOWTO/Man-Page/
       <arg choice="opt">
         <group choice="plain">
           <arg choice="plain"><option>-I<replaceable>PATH</replaceable></option></arg>
-          <arg choice="plain"><option>--proto-path=<replaceable>PATH</replaceable></option></arg>
+          <arg choice="plain"><option>--proto_path=<replaceable>PATH</replaceable></option></arg>
         </group>
       </arg>
       <arg choice="plain"><replaceable>PROTO_FILE</replaceable></arg>
