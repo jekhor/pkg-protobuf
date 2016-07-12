@@ -52,8 +52,9 @@ namespace compiler {
 namespace java {
 
 SharedCodeGenerator::SharedCodeGenerator(const FileDescriptor* file)
-  : name_resolver_(new ClassNameResolver), file_(file) {
-}
+    : name_resolver_(new ClassNameResolver),
+      enforce_lite_(false),
+      file_(file) {}
 
 SharedCodeGenerator::~SharedCodeGenerator() {
 }
@@ -63,7 +64,7 @@ void SharedCodeGenerator::Generate(GeneratorContext* context,
   string java_package = FileJavaPackage(file_);
   string package_dir = JavaPackageToDir(java_package);
 
-  if (HasDescriptorMethods(file_)) {
+  if (HasDescriptorMethods(file_, enforce_lite_)) {
     // Generate descriptors.
     string classname = name_resolver_->GetDescriptorClassName(file_);
     string filename = package_dir + classname + ".java";
@@ -171,7 +172,7 @@ void SharedCodeGenerator::GenerateDescriptors(io::Printer* printer) {
       string classname = FileJavaPackage(file_->dependency(i)) + "." +
                          name_resolver_->GetDescriptorClassName(
                              file_->dependency(i));
-      dependencies.push_back(make_pair(filename, classname));
+      dependencies.push_back(std::make_pair(filename, classname));
     }
   }
 

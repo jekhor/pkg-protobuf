@@ -38,12 +38,15 @@
 
 #include <google/protobuf/message.h>
 
+#include <google/protobuf/stubs/logging.h>
 #include <google/protobuf/stubs/common.h>
+#include <google/protobuf/stubs/mutex.h>
 #include <google/protobuf/stubs/once.h>
 #include <google/protobuf/reflection_internal.h>
 #include <google/protobuf/io/coded_stream.h>
 #include <google/protobuf/io/zero_copy_stream_impl.h>
 #include <google/protobuf/descriptor.pb.h>
+#include <google/protobuf/map_field.h>
 #include <google/protobuf/descriptor.h>
 #include <google/protobuf/generated_message_util.h>
 #include <google/protobuf/reflection_ops.h>
@@ -66,7 +69,7 @@ void Message::MergeFrom(const Message& from) {
   GOOGLE_CHECK_EQ(from.GetDescriptor(), descriptor)
     << ": Tried to merge from a message with a different type.  "
        "to: " << descriptor->full_name() << ", "
-       "from:" << from.GetDescriptor()->full_name();
+       "from: " << from.GetDescriptor()->full_name();
   ReflectionOps::Merge(from, this);
 }
 
@@ -79,7 +82,7 @@ void Message::CopyFrom(const Message& from) {
   GOOGLE_CHECK_EQ(from.GetDescriptor(), descriptor)
     << ": Tried to copy from a message with a different type. "
        "to: " << descriptor->full_name() << ", "
-       "from:" << from.GetDescriptor()->full_name();
+       "from: " << from.GetDescriptor()->full_name();
   ReflectionOps::Copy(from, this);
 }
 
@@ -254,6 +257,22 @@ void Reflection::AddEnumValue(Message* message,
                   const FieldDescriptor* field,
                   int value) const {
   GOOGLE_LOG(FATAL) << "Unimplemented EnumValue API.";
+}
+
+MapIterator Reflection::MapBegin(
+    Message* message,
+    const FieldDescriptor* field) const {
+  GOOGLE_LOG(FATAL) << "Unimplemented Map Reflection API.";
+  MapIterator iter(message, field);
+  return iter;
+}
+
+MapIterator Reflection::MapEnd(
+    Message* message,
+    const FieldDescriptor* field) const {
+  GOOGLE_LOG(FATAL) << "Unimplemented Map Reflection API.";
+  MapIterator iter(message, field);
+  return iter;
 }
 
 // =============================================================================
@@ -443,17 +462,17 @@ const internal::RepeatedFieldAccessor* Reflection::RepeatedFieldAccessor(
 namespace internal {
 namespace {
 void ShutdownRepeatedFieldAccessor() {
-  Singleton<internal::RepeatedFieldPrimitiveAccessor<int32> >::ShutDown();
-  Singleton<internal::RepeatedFieldPrimitiveAccessor<uint32> >::ShutDown();
-  Singleton<internal::RepeatedFieldPrimitiveAccessor<int64> >::ShutDown();
-  Singleton<internal::RepeatedFieldPrimitiveAccessor<uint64> >::ShutDown();
-  Singleton<internal::RepeatedFieldPrimitiveAccessor<float> >::ShutDown();
-  Singleton<internal::RepeatedFieldPrimitiveAccessor<double> >::ShutDown();
-  Singleton<internal::RepeatedFieldPrimitiveAccessor<bool> >::ShutDown();
-  Singleton<internal::RepeatedPtrFieldStringAccessor>::ShutDown();
-  Singleton<internal::RepeatedPtrFieldMessageAccessor>::ShutDown();
-  Singleton<internal::MapFieldAccessor>::ShutDown();
-};
+  internal::Singleton<internal::RepeatedFieldPrimitiveAccessor<int32> >::ShutDown();
+  internal::Singleton<internal::RepeatedFieldPrimitiveAccessor<uint32> >::ShutDown();
+  internal::Singleton<internal::RepeatedFieldPrimitiveAccessor<int64> >::ShutDown();
+  internal::Singleton<internal::RepeatedFieldPrimitiveAccessor<uint64> >::ShutDown();
+  internal::Singleton<internal::RepeatedFieldPrimitiveAccessor<float> >::ShutDown();
+  internal::Singleton<internal::RepeatedFieldPrimitiveAccessor<double> >::ShutDown();
+  internal::Singleton<internal::RepeatedFieldPrimitiveAccessor<bool> >::ShutDown();
+  internal::Singleton<internal::RepeatedPtrFieldStringAccessor>::ShutDown();
+  internal::Singleton<internal::RepeatedPtrFieldMessageAccessor>::ShutDown();
+  internal::Singleton<internal::MapFieldAccessor>::ShutDown();
+}
 
 struct ShutdownRepeatedFieldRegister {
   ShutdownRepeatedFieldRegister() {
@@ -461,14 +480,37 @@ struct ShutdownRepeatedFieldRegister {
   }
 } shutdown_;
 
-}  // namesapce
+}  // namespace
 }  // namespace internal
 
 namespace internal {
-// Macro defined in repeated_field.h. We can only define the Message-specific
-// GenericTypeHandler specializations here because we depend on Message, which
-// is not part of proto2-lite hence is not available in repeated_field.h.
-DEFINE_SPECIALIZATIONS_FOR_BASE_PROTO_TYPES_NOINLINE(Message);
+template<>
+#if defined(_MSC_VER) && (_MSC_VER >= 1900)
+// Note: force noinline to workaround MSVC 2015 compiler bug, issue #240
+GOOGLE_ATTRIBUTE_NOINLINE
+#endif
+Message* GenericTypeHandler<Message>::NewFromPrototype(
+    const Message* prototype, google::protobuf::Arena* arena) {
+  return prototype->New(arena);
+}
+template<>
+#if defined(_MSC_VER) && (_MSC_VER >= 1900)
+// Note: force noinline to workaround MSVC 2015 compiler bug, issue #240
+GOOGLE_ATTRIBUTE_NOINLINE
+#endif
+google::protobuf::Arena* GenericTypeHandler<Message>::GetArena(
+    Message* value) {
+  return value->GetArena();
+}
+template<>
+#if defined(_MSC_VER) && (_MSC_VER >= 1900)
+// Note: force noinline to workaround MSVC 2015 compiler bug, issue #240
+GOOGLE_ATTRIBUTE_NOINLINE
+#endif
+void* GenericTypeHandler<Message>::GetMaybeArenaPointer(
+    Message* value) {
+  return value->GetMaybeArenaPointer();
+}
 }  // namespace internal
 
 }  // namespace protobuf
