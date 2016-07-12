@@ -79,9 +79,9 @@ override_dh_install-arch:
 
 	# Convert doc dir to symlink for the -dev packages.
 	rm -rf $(CURDIR)/debian/libprotobuf-dev/usr/share/doc/libprotobuf-dev
-	ln -s libprotobuf9v5 $(CURDIR)/debian/libprotobuf-dev/usr/share/doc/libprotobuf-dev
+	ln -s libprotobuf10 $(CURDIR)/debian/libprotobuf-dev/usr/share/doc/libprotobuf-dev
 	rm -rf $(CURDIR)/debian/libprotoc-dev/usr/share/doc/libprotoc-dev
-	ln -s libprotoc9v5 $(CURDIR)/debian/libprotoc-dev/usr/share/doc/libprotoc-dev
+	ln -s libprotoc10 $(CURDIR)/debian/libprotoc-dev/usr/share/doc/libprotoc-dev
 
 	# Remove compiler headers from libprotobuf-dev.
 	rm -rf $(CURDIR)/debian/libprotobuf-dev/usr/include/google/protobuf/compiler
