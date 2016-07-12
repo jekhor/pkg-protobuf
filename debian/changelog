@@ -1,3 +1,15 @@
+protobuf (3.0.0~beta3.3-1) UNRELEASED; urgency=low
+
+  [ Dmitry Smirnov ]
+  * New upstream pre-release [June 2016].
+    - removed obsolete patches.
+  * Introduced "watch" file.
+  * copyright:
+    + full review & update;
+    + convert to copyright-format 1.0;
+
+ -- Dmitry Smirnov <onlyjob@debian.org>  Tue, 12 Jul 2016 22:02:27 +1000
+
 protobuf (2.6.1-2) unstable; urgency=low
 
   * Acknowledge NMUs, thanks Matthias Klose and Simon McVittie!
