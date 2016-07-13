@@ -7,6 +7,7 @@ protobuf (3.0.0~beta3.3-1) UNRELEASED; urgency=low
   * copyright:
     + full review & update;
     + convert to copyright-format 1.0;
+  * Build-Depends += "google-mock".
 
  -- Dmitry Smirnov <onlyjob@debian.org>  Tue, 12 Jul 2016 22:02:27 +1000
 

@@ -9,7 +9,7 @@ endif
 %:
 	dh $@ --with autoreconf,python2
 
-override_dh_auto_build-arch:
+override_dh_auto_build-arch: gmock
 	dh_auto_build --arch
 
 	# Generate the manpage.
@@ -24,7 +24,21 @@ override_dh_auto_build-indep:
 	# Java build.
 	ant -f debian/java-build.xml jar
 
-override_dh_auto_test-arch:
+override_dh_clean:
+	$(RM) -rv gmock
+	dh_clean
+
+gmock:
+## Build: ::FIXME::
+##   lib/libgmock.la lib/libgmock_main.la
+##   lib/libgtest.la lib/libgtest_main.la
+	mkdir -p gmock/lib
+	cd gmock \
+	&& g++ -I/usr/src/gmock -c /usr/src/gmock/src/gmock-all.cc \
+	&& g++ -I/usr/src/gtest -c /usr/src/gtest/src/gtest-all.cc \
+	;
+
+override_dh_auto_test-arch: gmock
 	dh_auto_test --arch
 
 ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
@@ -38,7 +52,6 @@ endif
 
 override_dh_auto_test-indep:
 	:
-
 override_dh_auto_clean-arch:
 	dh_auto_clean --arch
 

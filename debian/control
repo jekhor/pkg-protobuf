@@ -15,6 +15,7 @@ Build-Depends:
 # C/C++
  , g++ (>= 4:4.7)
  , zlib1g-dev
+ , google-mock
 # Python
  , dh-python
  , python-all (>= 2.7)
