@@ -7,7 +7,7 @@ endif
 
 
 %:
-	dh $@ --with autoreconf,python2
+	dh $@ --with autoreconf,python2 --parallel
 
 override_dh_auto_build-arch: gmock
 	dh_auto_build --arch
