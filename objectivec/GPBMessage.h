@@ -49,18 +49,14 @@ extern NSString *const GPBMessageErrorDomain;
 
 /// Error code for NSError with GPBMessageErrorDomain.
 typedef NS_ENUM(NSInteger, GPBMessageErrorCode) {
-  /// The data being parsed is bad and a message can not be created from it.
-  GPBMessageErrorCodeMalformedData = -100,
+  /// Uncategorized error.
+  GPBMessageErrorCodeOther = -100,
   /// A message can't be serialized because it is missing required fields.
   GPBMessageErrorCodeMissingRequiredField = -101,
 };
 
-#ifdef DEBUG
-/// In DEBUG ONLY, an NSException is thrown when a parsed message doesn't
-/// contain required fields. This key allows you to retrieve the parsed message
-/// from the exception's @c userInfo dictionary.
-extern NSString *const GPBExceptionMessageKey;
-#endif  // DEBUG
+/// Key under which the error's reason is stored inside the userInfo dictionary.
+extern NSString *const GPBErrorReasonKey;
 
 CF_EXTERN_C_END
 
@@ -93,12 +89,15 @@ CF_EXTERN_C_END
 /// @note In DEBUG builds, the parsed message is checked to be sure all required
 ///       fields were provided, and the parse will fail if some are missing.
 ///
+/// @note The errors returned are likely coming from the domain and codes listed
+///       at the top of this file and GPBCodedInputStream.h.
+///
 /// @param data     The data to parse.
 /// @param errorPtr An optional error pointer to fill in with a failure reason if
 ///                 the data can not be parsed.
 ///
 /// @return A new instance of the class messaged.
-+ (instancetype)parseFromData:(NSData *)data error:(NSError **)errorPtr;
++ (nullable instancetype)parseFromData:(NSData *)data error:(NSError **)errorPtr;
 
 /// Creates a new instance by parsing the data. This method should be sent to
 /// the generated message class that the data should be interpreted as. If
@@ -108,15 +107,18 @@ CF_EXTERN_C_END
 /// @note In DEBUG builds, the parsed message is checked to be sure all required
 ///       fields were provided, and the parse will fail if some are missing.
 ///
+/// @note The errors returned are likely coming from the domain and codes listed
+///       at the top of this file and GPBCodedInputStream.h.
+///
 /// @param data              The data to parse.
 /// @param extensionRegistry The extension registry to use to look up extensions.
 /// @param errorPtr          An optional error pointer to fill in with a failure
 ///                          reason if the data can not be parsed.
 ///
 /// @return A new instance of the class messaged.
-+ (instancetype)parseFromData:(NSData *)data
-            extensionRegistry:(nullable GPBExtensionRegistry *)extensionRegistry
-                        error:(NSError **)errorPtr;
++ (nullable instancetype)parseFromData:(NSData *)data
+                     extensionRegistry:(nullable GPBExtensionRegistry *)extensionRegistry
+                                 error:(NSError **)errorPtr;
 
 /// Creates a new instance by parsing the data from the given input stream. This
 /// method should be sent to the generated message class that the data should
@@ -126,16 +128,19 @@ CF_EXTERN_C_END
 /// @note In DEBUG builds, the parsed message is checked to be sure all required
 ///       fields were provided, and the parse will fail if some are missing.
 ///
+/// @note The errors returned are likely coming from the domain and codes listed
+///       at the top of this file and GPBCodedInputStream.h.
+///
 /// @param input             The stream to read data from.
 /// @param extensionRegistry The extension registry to use to look up extensions.
 /// @param errorPtr          An optional error pointer to fill in with a failure
 ///                          reason if the data can not be parsed.
 ///
 /// @return A new instance of the class messaged.
-+ (instancetype)parseFromCodedInputStream:(GPBCodedInputStream *)input
-                        extensionRegistry:
-                            (nullable GPBExtensionRegistry *)extensionRegistry
-                                    error:(NSError **)errorPtr;
++ (nullable instancetype)parseFromCodedInputStream:(GPBCodedInputStream *)input
+                                 extensionRegistry:
+                                     (nullable GPBExtensionRegistry *)extensionRegistry
+                                             error:(NSError **)errorPtr;
 
 /// Creates a new instance by parsing the data from the given input stream. This
 /// method should be sent to the generated message class that the data should
@@ -146,16 +151,19 @@ CF_EXTERN_C_END
 ///       the required fields are set. So this method can be used to reload
 ///       messages that may not be complete.
 ///
+/// @note The errors returned are likely coming from the domain and codes listed
+///       at the top of this file and GPBCodedInputStream.h.
+///
 /// @param input             The stream to read data from.
 /// @param extensionRegistry The extension registry to use to look up extensions.
 /// @param errorPtr          An optional error pointer to fill in with a failure
 ///                          reason if the data can not be parsed.
 ///
 /// @return A new instance of the class messaged.
-+ (instancetype)parseDelimitedFromCodedInputStream:(GPBCodedInputStream *)input
-                                 extensionRegistry:
-                                     (nullable GPBExtensionRegistry *)extensionRegistry
-                                             error:(NSError **)errorPtr;
++ (nullable instancetype)parseDelimitedFromCodedInputStream:(GPBCodedInputStream *)input
+                                          extensionRegistry:
+                                              (nullable GPBExtensionRegistry *)extensionRegistry
+                                                      error:(NSError **)errorPtr;
 
 /// Initializes an instance by parsing the data. This method should be sent to
 /// the generated message class that the data should be interpreted as. If
@@ -164,11 +172,14 @@ CF_EXTERN_C_END
 ///
 /// @note In DEBUG builds, the parsed message is checked to be sure all required
 ///       fields were provided, and the parse will fail if some are missing.
+///
+/// @note The errors returned are likely coming from the domain and codes listed
+///       at the top of this file and GPBCodedInputStream.h.
 ///
 /// @param data     The data to parse.
 /// @param errorPtr An optional error pointer to fill in with a failure reason if
 ///                 the data can not be parsed.
-- (instancetype)initWithData:(NSData *)data error:(NSError **)errorPtr;
+- (nullable instancetype)initWithData:(NSData *)data error:(NSError **)errorPtr;
 
 /// Initializes an instance by parsing the data. This method should be sent to
 /// the generated message class that the data should be interpreted as. If
@@ -177,14 +188,17 @@ CF_EXTERN_C_END
 ///
 /// @note In DEBUG builds, the parsed message is checked to be sure all required
 ///       fields were provided, and the parse will fail if some are missing.
+///
+/// @note The errors returned are likely coming from the domain and codes listed
+///       at the top of this file and GPBCodedInputStream.h.
 ///
 /// @param data              The data to parse.
 /// @param extensionRegistry The extension registry to use to look up extensions.
 /// @param errorPtr          An optional error pointer to fill in with a failure
 ///                          reason if the data can not be parsed.
-- (instancetype)initWithData:(NSData *)data
-           extensionRegistry:(nullable GPBExtensionRegistry *)extensionRegistry
-                       error:(NSError **)errorPtr;
+- (nullable instancetype)initWithData:(NSData *)data
+                    extensionRegistry:(nullable GPBExtensionRegistry *)extensionRegistry
+                                error:(NSError **)errorPtr;
 
 /// Initializes an instance by parsing the data from the given input stream. This
 /// method should be sent to the generated message class that the data should
@@ -195,14 +209,17 @@ CF_EXTERN_C_END
 ///       the required fields are set. So this method can be used to reload
 ///       messages that may not be complete.
 ///
+/// @note The errors returned are likely coming from the domain and codes listed
+///       at the top of this file and GPBCodedInputStream.h.
+///
 /// @param input             The stream to read data from.
 /// @param extensionRegistry The extension registry to use to look up extensions.
 /// @param errorPtr          An optional error pointer to fill in with a failure
 ///                          reason if the data can not be parsed.
-- (instancetype)initWithCodedInputStream:(GPBCodedInputStream *)input
-                       extensionRegistry:
-                           (nullable GPBExtensionRegistry *)extensionRegistry
-                                   error:(NSError **)errorPtr;
+- (nullable instancetype)initWithCodedInputStream:(GPBCodedInputStream *)input
+                                extensionRegistry:
+                                    (nullable GPBExtensionRegistry *)extensionRegistry
+                                            error:(NSError **)errorPtr;
 
 /// Writes out the message to the given output stream.
 - (void)writeToCodedOutputStream:(GPBCodedOutputStream *)output;
@@ -257,6 +274,9 @@ CF_EXTERN_C_END
 + (GPBDescriptor *)descriptor;
 /// Return the descriptor for the message.
 - (GPBDescriptor *)descriptor;
+
+/// Returns an array with the currently set GPBExtensionDescriptors.
+- (NSArray *)extensionsCurrentlySet;
 
 /// Test to see if the given extension is set on the message.
 - (BOOL)hasExtension:(GPBExtensionDescriptor *)extension;

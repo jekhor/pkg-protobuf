@@ -22,6 +22,7 @@
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#pragma clang diagnostic ignored "-Wdirect-ivar-access"
 
 #pragma mark - GPBStructRoot
 
@@ -236,7 +237,7 @@ void SetGPBValue_NullValue_RawValue(GPBValue *message, int32_t value) {
 
 void GPBValue_ClearKindOneOfCase(GPBValue *message) {
   GPBDescriptor *descriptor = [message descriptor];
-  GPBOneofDescriptor *oneof = descriptor->oneofs_[0];
+  GPBOneofDescriptor *oneof = [descriptor.oneofs objectAtIndex:0];
   GPBMaybeClearOneof(message, oneof, -1, 0);
 }
 #pragma mark - GPBListValue

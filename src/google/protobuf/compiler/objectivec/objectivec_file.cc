@@ -37,7 +37,11 @@
 #include <google/protobuf/io/zero_copy_stream_impl.h>
 #include <google/protobuf/stubs/stl_util.h>
 #include <google/protobuf/stubs/strutil.h>
+#include <iostream>
 #include <sstream>
+
+// NOTE: src/google/protobuf/compiler/plugin.cc makes use of cerr for some
+// error cases, so it seems to be ok to use as a back door for errors.
 
 namespace google {
 namespace protobuf {
@@ -54,32 +58,77 @@ namespace {
 
 class ImportWriter {
  public:
-  ImportWriter() {}
+  ImportWriter(const Options& options)
+      : options_(options),
+        need_to_parse_mapping_file_(true) {}
 
   void AddFile(const FileGenerator* file);
   void Print(io::Printer *printer) const;
 
  private:
+  class ProtoFrameworkCollector : public LineConsumer {
+   public:
+    ProtoFrameworkCollector(map<string, string>* inout_proto_file_to_framework_name)
+        : map_(inout_proto_file_to_framework_name) {}
+
+    virtual bool ConsumeLine(const StringPiece& line, string* out_error);
+
+   private:
+    map<string, string>* map_;
+  };
+
+  void ParseFrameworkMappings();
+
+  const Options options_;
+  map<string, string> proto_file_to_framework_name_;
+  bool need_to_parse_mapping_file_;
+
   vector<string> protobuf_framework_imports_;
   vector<string> protobuf_non_framework_imports_;
+  vector<string> other_framework_imports_;
   vector<string> other_imports_;
 };
 
 void ImportWriter::AddFile(const FileGenerator* file) {
   const FileDescriptor* file_descriptor = file->Descriptor();
   const string extension(".pbobjc.h");
+
   if (IsProtobufLibraryBundledProtoFile(file_descriptor)) {
     protobuf_framework_imports_.push_back(
         FilePathBasename(file_descriptor) + extension);
     protobuf_non_framework_imports_.push_back(file->Path() + extension);
-  } else {
-    other_imports_.push_back(file->Path() + extension);
+    return;
   }
+
+  // Lazy parse any mappings.
+  if (need_to_parse_mapping_file_) {
+    ParseFrameworkMappings();
+  }
+
+  map<string, string>::iterator proto_lookup =
+      proto_file_to_framework_name_.find(file_descriptor->name());
+  if (proto_lookup != proto_file_to_framework_name_.end()) {
+    other_framework_imports_.push_back(
+        proto_lookup->second + "/" +
+        FilePathBasename(file_descriptor) + extension);
+    return;
+  }
+
+  if (!options_.generate_for_named_framework.empty()) {
+    other_framework_imports_.push_back(
+        options_.generate_for_named_framework + "/" +
+        FilePathBasename(file_descriptor) + extension);
+    return;
+  }
+
+  other_imports_.push_back(file->Path() + extension);
 }
 
-void ImportWriter::Print(io::Printer *printer) const {
+void ImportWriter::Print(io::Printer* printer) const {
   assert(protobuf_non_framework_imports_.size() ==
          protobuf_framework_imports_.size());
+
+  bool add_blank_line = false;
 
   if (protobuf_framework_imports_.size() > 0) {
     const string framework_name(ProtobufLibraryFrameworkName);
@@ -106,12 +155,29 @@ void ImportWriter::Print(io::Printer *printer) const {
     printer->Print(
         "#endif\n");
 
-    if (other_imports_.size() > 0) {
+    add_blank_line = true;
+  }
+
+  if (other_framework_imports_.size() > 0) {
+    if (add_blank_line) {
       printer->Print("\n");
     }
+
+    for (vector<string>::const_iterator iter = other_framework_imports_.begin();
+         iter != other_framework_imports_.end(); ++iter) {
+      printer->Print(
+          " #import <$header$>\n",
+          "header", *iter);
+    }
+
+    add_blank_line = true;
   }
 
   if (other_imports_.size() > 0) {
+    if (add_blank_line) {
+      printer->Print("\n");
+    }
+
     for (vector<string>::const_iterator iter = other_imports_.begin();
          iter != other_imports_.end(); ++iter) {
       printer->Print(
@@ -119,6 +185,69 @@ void ImportWriter::Print(io::Printer *printer) const {
           "header", *iter);
     }
   }
+}
+
+void ImportWriter::ParseFrameworkMappings() {
+  need_to_parse_mapping_file_ = false;
+  if (options_.named_framework_to_proto_path_mappings_path.empty()) {
+    return;  // Nothing to do.
+  }
+
+  ProtoFrameworkCollector collector(&proto_file_to_framework_name_);
+  string parse_error;
+  if (!ParseSimpleFile(options_.named_framework_to_proto_path_mappings_path,
+                       &collector, &parse_error)) {
+    cerr << "error parsing " << options_.named_framework_to_proto_path_mappings_path
+         << " : " << parse_error << endl;
+    cerr.flush();
+  }
+}
+
+bool ImportWriter::ProtoFrameworkCollector::ConsumeLine(
+    const StringPiece& line, string* out_error) {
+  int offset = line.find(':');
+  if (offset == StringPiece::npos) {
+    *out_error =
+        string("Framework/proto file mapping line without colon sign: '") +
+        line.ToString() + "'.";
+    return false;
+  }
+  StringPiece framework_name(line, 0, offset);
+  StringPiece proto_file_list(line, offset + 1, line.length() - offset - 1);
+  StringPieceTrimWhitespace(&framework_name);
+
+  int start = 0;
+  while (start < proto_file_list.length()) {
+    offset = proto_file_list.find(',', start);
+    if (offset == StringPiece::npos) {
+      offset = proto_file_list.length();
+    }
+
+    StringPiece proto_file(proto_file_list, start, offset - start);
+    StringPieceTrimWhitespace(&proto_file);
+    if (proto_file.size() != 0) {
+      map<string, string>::iterator existing_entry =
+          map_->find(proto_file.ToString());
+      if (existing_entry != map_->end()) {
+        cerr << "warning: duplicate proto file reference, replacing framework entry for '"
+             << proto_file.ToString() << "' with '" << framework_name.ToString()
+             << "' (was '" << existing_entry->second << "')." << endl;
+        cerr.flush();
+      }
+
+      if (proto_file.find(' ') != StringPiece::npos) {
+        cerr << "note: framework mapping file had a proto file with a space in, hopefully that isn't a missing comma: '"
+             << proto_file.ToString() << "'" << endl;
+        cerr.flush();
+      }
+
+      (*map_)[proto_file.ToString()] = framework_name.ToString();
+    }
+
+    start = offset + 1;
+  }
+
+  return true;
 }
 
 }  // namespace
@@ -156,7 +285,7 @@ FileGenerator::~FileGenerator() {
 }
 
 void FileGenerator::GenerateHeader(io::Printer *printer) {
-  PrintFilePreamble(printer, "GPBProtocolBuffers.h");
+  PrintFileRuntimePreamble(printer, "GPBProtocolBuffers.h");
 
   // Add some verification that the generated code matches the source the
   // code is being compiled with.
@@ -170,7 +299,7 @@ void FileGenerator::GenerateHeader(io::Printer *printer) {
 
   // #import any headers for "public imports" in the proto file.
   {
-    ImportWriter import_writer;
+    ImportWriter import_writer(options_);
     const vector<FileGenerator *> &dependency_generators = DependencyGenerators();
     for (vector<FileGenerator *>::const_iterator iter =
              dependency_generators.begin();
@@ -182,6 +311,10 @@ void FileGenerator::GenerateHeader(io::Printer *printer) {
     import_writer.Print(printer);
   }
 
+  // Note:
+  //  deprecated-declarations suppression is only needed if some place in this
+  //    proto file is something deprecated or if it references something from
+  //    another file that is deprecated.
   printer->Print(
       "// @@protoc_insertion_point(imports)\n"
       "\n"
@@ -269,10 +402,10 @@ void FileGenerator::GenerateHeader(io::Printer *printer) {
 
 void FileGenerator::GenerateSource(io::Printer *printer) {
   // #import the runtime support.
-  PrintFilePreamble(printer, "GPBProtocolBuffers_RuntimeSupport.h");
+  PrintFileRuntimePreamble(printer, "GPBProtocolBuffers_RuntimeSupport.h");
 
   {
-    ImportWriter import_writer;
+    ImportWriter import_writer(options_);
 
     // #import the header for this proto file.
     import_writer.AddFile(this);
@@ -292,14 +425,34 @@ void FileGenerator::GenerateSource(io::Printer *printer) {
     import_writer.Print(printer);
   }
 
+  bool includes_oneof = false;
+  for (vector<MessageGenerator *>::iterator iter = message_generators_.begin();
+       iter != message_generators_.end(); ++iter) {
+    if ((*iter)->IncludesOneOfDefinition()) {
+      includes_oneof = true;
+      break;
+    }
+  }
+
+  // Note:
+  //  deprecated-declarations suppression is only needed if some place in this
+  //    proto file is something deprecated or if it references something from
+  //    another file that is deprecated.
   printer->Print(
       "// @@protoc_insertion_point(imports)\n"
       "\n"
       "#pragma clang diagnostic push\n"
-      "#pragma clang diagnostic ignored \"-Wdeprecated-declarations\"\n"
-      "\n");
+      "#pragma clang diagnostic ignored \"-Wdeprecated-declarations\"\n");
+  if (includes_oneof) {
+    // The generated code for oneof's uses direct ivar access, suppress the
+    // warning incase developer turn that on in the context they compile the
+    // generated code.
+    printer->Print(
+        "#pragma clang diagnostic ignored \"-Wdirect-ivar-access\"\n");
+  }
 
   printer->Print(
+      "\n"
       "#pragma mark - $root_class_name$\n"
       "\n"
       "@implementation $root_class_name$\n\n",
@@ -447,7 +600,10 @@ const vector<FileGenerator *> &FileGenerator::DependencyGenerators() {
   return dependency_generators_;
 }
 
-void FileGenerator::PrintFilePreamble(
+// Helper to print the import of the runtime support at the top of generated
+// files. This currently only supports the runtime coming from a framework
+// as defined by the official CocoaPod.
+void FileGenerator::PrintFileRuntimePreamble(
     io::Printer* printer, const string& header_to_import) const {
   printer->Print(
       "// Generated by the protocol buffer compiler.  DO NOT EDIT!\n"

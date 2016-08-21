@@ -10,6 +10,7 @@ These are projects we know about implementing Protocol Buffers for other program
 * Action Script: http://code.google.com/p/protobuf-actionscript3/
 * Action Script: https://code.google.com/p/protoc-gen-as3/
 * Action Script: https://github.com/matrix3d/JProtoc
+* Action Script: https://github.com/zhongfq/protobuf-as3/
 * C: https://github.com/protobuf-c/protobuf-c
 * C: http://koti.kapsi.fi/jpa/nanopb/
 * C: https://github.com/cloudwu/pbc/
@@ -145,3 +146,4 @@ There are miscellaneous other things you may find useful as a Protocol Buffers d
 * [ProtoBuf with Java EE7 Expression Language 3.0; pure Java ProtoBuf Parser and Builder.](https://github.com/protobufel/protobuf-el)
 * [Notepad++ Syntax Highlighting for .proto files](https://github.com/chai2010/notepadplus-protobuf)
 * [Linter for .proto files](https://github.com/ckaznocha/protoc-gen-lint)
+* [Protocol Buffers Dynamic Schema - create protobuf schemas programmatically (Java)] (https://github.com/os72/protobuf-dynamic)
