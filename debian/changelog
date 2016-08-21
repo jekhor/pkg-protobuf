@@ -1,7 +1,7 @@
-protobuf (3.0.0~beta3.3-1) UNRELEASED; urgency=low
+protobuf (3.0.0-1) UNRELEASED; urgency=low
 
   [ Dmitry Smirnov ]
-  * New upstream pre-release [June 2016].
+  * New upstream pre-release [July 2016] (Closes: #795841, #811650).
     - removed obsolete patches.
   * Introduced "watch" file.
   * copyright:
