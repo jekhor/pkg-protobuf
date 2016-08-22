@@ -1,9 +1,9 @@
-protobuf (3.0.0-1) UNRELEASED; urgency=low
+protobuf (3.0.0-1) unstable; urgency=low
 
   * Team upload.
 
   [ Dmitry Smirnov ]
-  * New upstream pre-release [July 2016] (Closes: #795841, #811650).
+  * New upstream release [July 2016] (Closes: #795841, #811650).
     - removed obsolete patches.
   * Introduced "watch" file.
   * copyright:
@@ -11,7 +11,7 @@ protobuf (3.0.0-1) UNRELEASED; urgency=low
     + convert to copyright-format 1.0;
   * Build-Depends += "google-mock".
 
- -- Dmitry Smirnov <onlyjob@debian.org>  Tue, 12 Jul 2016 22:02:27 +1000
+ -- Dmitry Smirnov <onlyjob@debian.org>  Mon, 22 Aug 2016 15:35:08 +1000
 
 protobuf (2.6.1-2) unstable; urgency=low
 
