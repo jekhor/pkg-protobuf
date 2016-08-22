@@ -1,5 +1,7 @@
 protobuf (3.0.0-1) UNRELEASED; urgency=low
 
+  * Team upload.
+
   [ Dmitry Smirnov ]
   * New upstream pre-release [July 2016] (Closes: #795841, #811650).
     - removed obsolete patches.

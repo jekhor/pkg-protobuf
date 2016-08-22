@@ -9,7 +9,7 @@ endif
 %:
 	dh $@ --with autoreconf,python2 --parallel
 
-override_dh_auto_build-arch: gmock
+override_dh_auto_build-arch:
 	dh_auto_build --arch
 
 	# Generate the manpage.
@@ -28,15 +28,13 @@ override_dh_clean:
 	$(RM) -rv gmock
 	dh_clean
 
+override_dh_autoreconf: gmock
+	dh_autoreconf
+
 gmock:
-## Build: ::FIXME::
-##   lib/libgmock.la lib/libgmock_main.la
-##   lib/libgtest.la lib/libgtest_main.la
-	mkdir -p gmock/lib
-	cd gmock \
-	&& g++ -I/usr/src/gmock -c /usr/src/gmock/src/gmock-all.cc \
-	&& g++ -I/usr/src/gtest -c /usr/src/gtest/src/gtest-all.cc \
-	;
+	cp -rv debian/gmock ./
+	cp -rv /usr/src/gmock/src gmock/
+	cp -rv /usr/src/gtest/src gmock/gtest/
 
 override_dh_auto_test-arch: gmock
 	dh_auto_test --arch
