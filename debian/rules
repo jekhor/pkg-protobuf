@@ -5,11 +5,12 @@ export DEB_CFLAGS_MAINT_APPEND = -O0
 export DEB_CXXFLAGS_MAINT_APPEND = -O0
 endif
 
-
 %:
 	dh $@ --with autoreconf,python2 --parallel
 
 override_dh_auto_build-arch:
+	dh_auto_build --arch
+	bash -x ./generate_descriptor_proto.sh
 	dh_auto_build --arch
 
 	# Generate the manpage.
