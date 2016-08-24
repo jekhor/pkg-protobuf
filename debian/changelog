@@ -1,3 +1,10 @@
+protobuf (3.0.0-3) unstable; urgency=low
+
+  [ Bas Couwenberg ]
+  * Added new patch to fix FTBFS "misleading indentation" (Closes: #835266).
+
+ -- Dmitry Smirnov <onlyjob@debian.org>  Wed, 24 Aug 2016 13:54:36 +1000
+
 protobuf (3.0.0-2) unstable; urgency=medium
 
   * rules: invoke "generate_descriptor_proto.sh" to re-generate pre-built
