@@ -9,9 +9,12 @@ endif
 	dh $@ --with autoreconf,python2 --parallel
 
 override_dh_auto_build-arch:
+## Chicken<->Egg problem: protobuf requires self-generated .pb.go files to
+## be built. First we build it normally; then "generate_descriptor_proto.sh"
+## generates .pb.go files and replaces 'em if they are different as well as
+## invokes "make protoc" which re-builds "src/protoc" if required.
 	dh_auto_build --arch
 	bash -x ./generate_descriptor_proto.sh
-	dh_auto_build --arch
 
 	# Generate the manpage.
 	xmlto man debian/protoc.xml
