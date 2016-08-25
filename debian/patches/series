@@ -1,3 +1,4 @@
+expect_death.patch
 hurd.patch
 misleading-indentation.patch
 s390x.patch
