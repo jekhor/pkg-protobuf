@@ -1,3 +1,16 @@
+protobuf (3.0.0-4) unstable; urgency=low
+
+  * Team upload.
+  * Updated "libprotobuf-java.poms" (Closes: #835358).
+    Thanks, Markus Koschany.
+  * Added new patches to fix FTBFS on s390x and sparc64 (Closes: #835290).
+    Thanks, Aurelien Jarno; thanks Sebastiaan Couwenberg.
+  * New patch to fix FTBFS on Hurd (Closes: #835267).
+    Thanks, Sebastiaan Couwenberg.
+  * rules: removed "-O0" #796069 workaround for mips(el).
+
+ -- Dmitry Smirnov <onlyjob@debian.org>  Thu, 25 Aug 2016 11:28:07 +1000
+
 protobuf (3.0.0-3) unstable; urgency=low
 
   [ Bas Couwenberg ]
