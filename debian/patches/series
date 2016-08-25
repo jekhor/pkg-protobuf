@@ -1,3 +1,4 @@
+hurd.patch
 misleading-indentation.patch
 s390x.patch
 sparc64.patch
