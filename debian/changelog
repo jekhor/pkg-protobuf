@@ -1,3 +1,13 @@
+protobuf (3.0.0-5) unstable; urgency=medium
+
+  * Team upload.
+  * Removed obsolete Conflicts/Replaces (Closes: #835385).
+    Thanks, Robert Edmonds.
+  * New patch to fix "EXPECT_DEATH" FTBFS on kFreeBSD (Closes: #835388).
+    Thanks, Bas Couwenberg.
+
+ -- Dmitry Smirnov <onlyjob@debian.org>  Fri, 26 Aug 2016 08:36:08 +1000
+
 protobuf (3.0.0-4) unstable; urgency=low
 
   * Team upload.
