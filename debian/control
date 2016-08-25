@@ -42,8 +42,6 @@ Architecture: any
 Multi-Arch: same
 Section: libs
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Conflicts: libprotobuf9
-Replaces: libprotobuf9
 Description: protocol buffers C++ library
  Protocol buffers are a flexible, efficient, automated mechanism for
  serializing structured data - similar to XML, but smaller, faster, and
@@ -63,8 +61,6 @@ Architecture: any
 Multi-Arch: same
 Section: libs
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Conflicts: libprotobuf-lite9
-Replaces: libprotobuf-lite9
 Description: protocol buffers C++ library (lite version)
  Protocol buffers are a flexible, efficient, automated mechanism for
  serializing structured data - similar to XML, but smaller, faster, and
@@ -106,8 +102,6 @@ Architecture: any
 Multi-Arch: same
 Section: libs
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Conflicts: libprotoc9
-Replaces: libprotoc9
 Description: protocol buffers compiler library
  Protocol buffers are a flexible, efficient, automated mechanism for
  serializing structured data - similar to XML, but smaller, faster, and
