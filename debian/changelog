@@ -1,3 +1,11 @@
+protobuf (3.0.0-6) unstable; urgency=medium
+
+  * New "java-test-scope.patch" to set scope of "junit" and "easymock" to
+    "test" (Closes: #835514).
+    Thanks, Markus Koschany.
+
+ -- Dmitry Smirnov <onlyjob@debian.org>  Sat, 27 Aug 2016 09:02:16 +1000
+
 protobuf (3.0.0-5) unstable; urgency=medium
 
   * Team upload.
