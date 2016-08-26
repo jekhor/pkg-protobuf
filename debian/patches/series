@@ -1,5 +1,6 @@
 expect_death.patch
 hurd.patch
+java-test-scope.patch
 misleading-indentation.patch
 s390x.patch
 sparc64.patch
