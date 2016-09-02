@@ -1,3 +1,13 @@
+protobuf (3.0.0-7) unstable; urgency=medium
+
+  * Team upload.
+
+  [ Bas Couwenberg ]
+  * Added patch by Srivats P to restore New*Callback into google::protobuf
+    namespace. Required for ostinato (#835435). (Closes: #836200).
+
+ -- Dmitry Smirnov <onlyjob@debian.org>  Fri, 02 Sep 2016 16:57:13 +1000
+
 protobuf (3.0.0-6) unstable; urgency=medium
 
   * New "java-test-scope.patch" to set scope of "junit" and "easymock" to
