@@ -1,3 +1,4 @@
+Restore-New-Callback-into-google-protobuf-namespace.patch
 expect_death.patch
 hurd.patch
 java-test-scope.patch
