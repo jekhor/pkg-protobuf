@@ -5,6 +5,9 @@ protobuf (3.0.0-8) UNRELEASED; urgency=medium
   * Add the missing B-D "libgtest-dev" (closes: #836826).
   * Add "python3-six" to B-D, which is required by python3 test.
 
+  [ Bart Martens <bartm@debian.org> ]
+  * Generalize watch file.
+
  -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Thu, 24 Nov 2016 17:33:28 +0000
 
 protobuf (3.0.0-7) unstable; urgency=medium
