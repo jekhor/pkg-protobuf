@@ -26,6 +26,7 @@ Build-Depends:
  , python-setuptools
  , python3-setuptools
  , python-google-apputils
+ , python3-six
 # Manpage generator
  , xmlto
 # Tests

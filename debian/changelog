@@ -3,6 +3,7 @@ protobuf (3.0.0-8) UNRELEASED; urgency=medium
   [ Zhou Mo <cdluminate@gmail.com> ]
   * Build python3-protobuf, thanks to Thomas Viehmann (closes: #836821).
   * Add the missing B-D "libgtest-dev" (closes: #836826).
+  * Add "python3-six" to B-D, which is required by python3 test.
 
  -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Thu, 24 Nov 2016 17:33:28 +0000
 
