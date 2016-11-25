@@ -1,4 +1,4 @@
-protobuf (3.0.0-8) UNRELEASED; urgency=medium
+protobuf (3.0.0-8) unstable; urgency=medium
 
   [ Zhou Mo <cdluminate@gmail.com> ]
   * Build python3-protobuf, thanks to Thomas Viehmann (closes: #836821).
