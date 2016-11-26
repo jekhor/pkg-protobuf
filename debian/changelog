@@ -1,3 +1,9 @@
+protobuf (3.0.0-9) UNRELEASED; urgency=medium
+
+  * Backport upstream fix for Python 3 build failure (closes: #845686).
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Fri, 25 Nov 2016 16:11:01 +0000
+
 protobuf (3.0.0-8) unstable; urgency=medium
 
   [ Zhou Mo <cdluminate@gmail.com> ]
