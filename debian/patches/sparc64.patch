@@ -5,9 +5,8 @@ Description: fix FTBFS on sparc64.
 
 --- a/src/google/protobuf/stubs/atomicops_internals_generic_gcc.h
 +++ b/src/google/protobuf/stubs/atomicops_internals_generic_gcc.h
-@@ -127,8 +127,47 @@
-                               __ATOMIC_RELAXED, __ATOMIC_RELAXED);
-   return old_value;
+@@ -146,6 +146,45 @@
+   return __atomic_load_n(ptr, __ATOMIC_RELAXED);
  }
  
 +inline Atomic64 NoBarrier_AtomicExchange(volatile Atomic64* ptr,
@@ -52,4 +51,3 @@ Description: fix FTBFS on sparc64.
  #endif // defined(__LP64__)
  
  }  // namespace internal
- }  // namespace protobuf
